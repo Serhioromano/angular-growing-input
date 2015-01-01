@@ -48,7 +48,7 @@
 						'-moz-box-sizing':    'border-box',
 						'box-sizing':         'border-box',
 						'width':              '100%',
-						'max-height':         parseInt(scope.growMax || 100) + 'px'
+						'max-height':         parseInt(attrs.grow || 100) + 'px'
 					})
 					.wrap(this.$wrapper)
 					.after(this.$clone);
@@ -117,7 +117,6 @@
 
 						angular.forEach(properties, function(property, i) {
 							var val = styles[property];
-							console.log(property, val);
 							// Prevent overriding percentage css values.
 							if(_this.$clone.css(property) !== val) {
 								_this.$clone.css(property, val);
@@ -144,9 +143,6 @@
 
 			return {
 				restrict: 'A',
-				scope:    {
-					growMax: '@'
-				},
 				link:     Expanding
 			}
 		}]);

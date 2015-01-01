@@ -15,8 +15,12 @@ Include to your `index.html`
     <script src="components/angular/angular.js"></script>
     <script src="components/angular-growing-input/angular-grow.js"></script>
 
+Add dependency to your application
+
+     app.module("YourAPP", ["growingInput"]);
+
 Apply directive to `<textarea>`
 
-    <textarea grow grow-max="100" ng-model="t"></textarea>
+    <textarea grow="100" ng-model="t"></textarea>
 
 This tells that `textarea` will grow up to `100px` height.
