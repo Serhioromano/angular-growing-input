@@ -30,8 +30,6 @@
 
 			function Expanding(scope, element, attrs) {
 
-				var styles = window.getComputedStyle(element[0], null);
-
 				this.$textarea = element;
 				this.$textCopy = a.element("<span />");
 				this.$clone = a.element("<pre class='expanding-clone'><br /></pre>").prepend(this.$textCopy);
@@ -102,7 +100,9 @@
 
 				function _copyTextareaStylesToClone() {
 
-					$timeout(function() {
+					angular.element(document).ready(function () {
+						var styles = window.getComputedStyle(element[0], null);
+						console.log(styles['fontSize']);
 						var _this = this,
 							properties = [
 								'lineHeight', 'textDecoration', 'letterSpacing',
@@ -125,7 +125,7 @@
 								}
 							}
 						});
-					}, 1000);
+					});
 				}
 
 				function _setTextareaStyles() {
