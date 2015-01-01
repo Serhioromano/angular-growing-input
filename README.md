@@ -2,7 +2,7 @@
 
 This directive allows textarea to grow to limited  height. `jQuery` **FREE**. Requires only AngularJS.
 
-This directive was made with inparation of @bgrins [ExpandingTextareas](https://github.com/bgrins/ExpandingTextareas) jQuery plugin.
+This directive was made with incarnation of @bgrins [ExpandingTextareas](https://github.com/bgrins/ExpandingTextareas) jQuery plugin.
 
 ## How to use.
 

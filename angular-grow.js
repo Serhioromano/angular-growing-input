@@ -2,9 +2,9 @@
  * Created by Sergey on 1/1/15.
  * https://github.com/Serhioromano/angular-growing-input
  */
-(!function() {
-	angular.
-		module('growingInput').
+(!function(a) {
+	a.
+		module('growingInput', []).
 		directive('grow', ['$timeout', function($timeout) {
 
 			// Returns the version of Internet Explorer or -1
@@ -33,9 +33,9 @@
 				var styles = window.getComputedStyle(element[0], null);
 
 				this.$textarea = element;
-				this.$textCopy = angular.element("<span />");
-				this.$clone = angular.element("<pre class='expanding-clone'><br /></pre>").prepend(this.$textCopy);
-				this.$wrapper = angular.element("<div class='expanding-wrapper' style='position:relative' />");
+				this.$textCopy = a.element("<span />");
+				this.$clone = a.element("<pre class='expanding-clone'><br /></pre>").prepend(this.$textCopy);
+				this.$wrapper = a.element("<div class='expanding-wrapper' style='position:relative' />");
 
 				_resetStyles();
 				_setCloneStyles();
@@ -115,7 +115,7 @@
 								'paddingLeft', 'paddingRight',
 								'paddingTop', 'paddingBottom', 'maxHeight'];
 
-						angular.forEach(properties, function(property, i) {
+						a.forEach(properties, function(property, i) {
 							var val = styles[property];
 							// Prevent overriding percentage css values.
 							if(_this.$clone.css(property) !== val) {
@@ -146,4 +146,4 @@
 				link:     Expanding
 			}
 		}]);
-}());
+}(angular));
