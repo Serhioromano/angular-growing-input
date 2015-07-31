@@ -30,16 +30,16 @@
 
 			function Expanding(scope, element, attrs) {
 
-				this.$textarea = element;
-				this.$textCopy = a.element("<span />");
-				this.$clone = a.element("<pre class='expanding-clone'><br /></pre>").prepend(this.$textCopy);
-				this.$wrapper = a.element("<div class='expanding-wrapper' style='position:relative' />");
+				scope.$textarea = element;
+				scope.$textCopy = a.element("<span />");
+				scope.$clone = a.element("<pre class='expanding-clone'><br /></pre>").prepend(scope.$textCopy);
+				scope.$wrapper = a.element("<div class='expanding-wrapper' style='position:relative' />");
 
 				_resetStyles();
 				_setCloneStyles();
 				_setTextareaStyles();
 
-				this.$textarea
+				scope.$textarea
 					.css({
 						'margin':             0,
 						'-webkit-box-sizing': 'border-box',
@@ -48,8 +48,8 @@
 						'width':              '100%',
 						'max-height':         parseInt(attrs.grow || 100) + 'px'
 					})
-					.wrap(this.$wrapper)
-					.after(this.$clone);
+					.wrap(scope.$wrapper)
+					.after(scope.$clone);
 
 				attach();
 				update();
@@ -57,23 +57,23 @@
 				function attach() {
 					var events = 'keydown keyup keypress change blur focus';
 					if(!inputSupported) events += ' keyup.expanding';
-					this.$textarea.bind(events, function() {
+					scope.$textarea.bind(events, function() {
 						update();
 					});
 				}
 
 				// Updates the clone with the textarea value
 				function update() {
-					var text = this.$textarea.val().replace(/\r\n/g, "\n");
-					this.$textCopy.text(text);
+					var text = scope.$textarea.val().replace(/\r\n/g, "\n");
+					scope.$textCopy.text(text);
 				}
 
 				// Applies reset styles to the textarea and clone
 				// Stores the original textarea styles in case of destroying
 				function _resetStyles() {
-					this._oldTextareaStyles = this.$textarea.attr('style');
+					scope._oldTextareaStyles = scope.$textarea.attr('style');
 
-					this.$textarea.css({
+					scope.$textarea.css({
 						margin:          0,
 						webkitBoxSizing: "border-box",
 						mozBoxSizing:    "border-box",
@@ -88,13 +88,13 @@
 						display:    'block',
 						border:     '0 solid',
 						visibility: 'hidden',
-						minHeight:  this.$textarea.prop('offsetHeight')
+						minHeight:  scope.$textarea.prop('offsetHeight')
 					};
 
-					if(this.$textarea.attr("wrap") === "off") css.overflowX = "scroll";
+					if(scope.$textarea.attr("wrap") === "off") css.overflowX = "scroll";
 					else css.whiteSpace = "pre-wrap";
 
-					this.$clone.css(css);
+					scope.$clone.css(css);
 					_copyTextareaStylesToClone();
 				}
 
@@ -103,7 +103,6 @@
 					angular.element(document).ready(function () {
 						var styles = window.getComputedStyle(element[0], null);
 						console.log(styles['fontSize']);
-						var _this = this,
 							properties = [
 								'lineHeight', 'textDecoration', 'letterSpacing',
 								'fontSize', 'fontFamily', 'fontStyle',
@@ -118,10 +117,10 @@
 						a.forEach(properties, function(property, i) {
 							var val = styles[property];
 							// Prevent overriding percentage css values.
-							if(_this.$clone.css(property) !== val) {
-								_this.$clone.css(property, val);
+							if(scope.$clone.css(property) !== val) {
+								scope.$clone.css(property, val);
 								if(property === 'maxHeight' && val !== 'none') {
-									_this.$clone.css('overflow', 'hidden');
+									scope.$clone.css('overflow', 'hidden');
 								}
 							}
 						});
@@ -129,7 +128,7 @@
 				}
 
 				function _setTextareaStyles() {
-					this.$textarea.css({
+					scope.$textarea.css({
 						position:     "absolute",
 						top:          0,
 						left:         0,
@@ -143,7 +142,10 @@
 
 			return {
 				restrict: 'A',
-				link:     Expanding
+				link:     Expanding,
+				scope: {
+					grow: '=grow'
+				}
 			}
 		}]);
 }(angular));
